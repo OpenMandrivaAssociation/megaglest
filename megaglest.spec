@@ -1,23 +1,23 @@
 %define rev svn588
-Name: 		megaglest
-Version: 	3.3.5
-Release: 	%mkrel 1
+Name:		megaglest
+Version:	3.3.5
+Release:	%mkrel 1
 Summary:	A free 3d real time strategy game
 Summary(de):	Ein freies 3D Echtzeit-Strategiespiel
 License:	GPLv2+
-Group: 		Games/Strategy
-URL: 		http://megaglest.sourceforge.net
-Source0: 	http://sourceforge.net/projects/%name/files/megaglest_3.2.3/%{name}-source-%{version}.tar.xz
-Source1: 	%{name}.sh
-Source2: 	%{name}.png
-Source3: 	glest.ini
+Group:		Games/Strategy
+URL:		http://megaglest.sourceforge.net
+Source0:	http://sourceforge.net/projects/%name/files/megaglest_3.2.3/%{name}-source-%{version}.tar.xz
+Source1:	%{name}.sh
+Source2:	%{name}.png
+Source3:	glest.ini
 BuildRequires:	zlib-devel
 BuildRequires:	openal-devel
 BuildRequires:	xerces-c-devel
 BuildRequires:	SDL-devel
 BuildRequires:	oggvorbis-devel
 BuildRequires:	SDL_net-devel
-BuildRequires:  SDL_mixer-devel
+BuildRequires:	SDL_mixer-devel
 BuildRequires:	Mesa-common-devel
 BuildRequires:	jam
 BuildRequires:	unzip
@@ -44,7 +44,7 @@ Science in the Mindwie Magic tief im Herzen; Diese in der der Wille vorhanden
 ist stark, Diese wird Herrschaft in ihrem Namen.
 
 %prep
-%setup  -n %{name}-source-%{version}
+%setup -q -n %{name}-source-%{version}
 
 %build
 export CFLAGS="%{optflags}"
