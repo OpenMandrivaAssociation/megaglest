@@ -1,18 +1,18 @@
 %define rev svn588
 Name:		megaglest
-Version:	3.3.5
+Version:	3.4.0
 Release:	%mkrel 1
 Summary:	A free 3d real time strategy game
 Summary(de):	Ein freies 3D Echtzeit-Strategiespiel
 License:	GPLv2+
 Group:		Games/Strategy
 URL:		http://megaglest.sourceforge.net
-Source0:	http://sourceforge.net/projects/%name/files/megaglest_3.2.3/%{name}-source-%{version}.tar.xz
+Source0:	http://downloads.sourceforge.net/project/megaglest/current_release/%{name}-source-%{version}.tar.xz
 Source1:	%{name}.sh
 Source2:	%{name}.png
 Source3:	glest.ini
 BuildRequires:	zlib-devel
-BuildRequires:	openal-devel
+BuildRequires:	openal-devel jpeg-devel
 BuildRequires:	xerces-c-devel
 BuildRequires:	SDL-devel
 BuildRequires:	oggvorbis-devel
