@@ -20,6 +20,7 @@ BuildRequires:	png-devel
 BuildRequires:	SDL-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires:	SDL_net-devel
+BuildRequires:	subversion
 BuildRequires:	xerces-c28-devel
 BuildRequires:	wxgtku-devel
 BuildRequires:	zlib-devel
