@@ -9,6 +9,7 @@ Source0:	http://sourceforge.net/projects/megaglest/files/current_release/megagle
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 BuildRequires:	cmake
+BuildRequires:	curl-devel
 BuildRequires:	GL-devel
 BuildRequires:	gnutls-devel
 BuildRequires:	icu-devel
