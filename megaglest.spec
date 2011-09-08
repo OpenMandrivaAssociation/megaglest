@@ -1,6 +1,6 @@
 Name:		megaglest
 Version:	3.5.2.4
-Release:	1
+Release:	2
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
@@ -25,7 +25,7 @@ BuildRequires:	subversion
 BuildRequires:	xerces-c28-devel
 BuildRequires:	wxgtku-devel
 BuildRequires:	zlib-devel
-Requires:	gxlinfo
+Requires:	glxinfo
 Requires:	megaglest-data
 Requires:	p7zip
 
