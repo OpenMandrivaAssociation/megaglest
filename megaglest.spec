@@ -1,6 +1,6 @@
 Name:		megaglest
 Version:	3.5.2.4
-Release:	2
+Release:	%mkrel 0.2
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
