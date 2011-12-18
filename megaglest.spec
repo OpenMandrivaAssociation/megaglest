@@ -1,11 +1,11 @@
 Name:		megaglest
-Version:	3.5.2.4
-Release:	%mkrel 0.2
+Version:	3.6.0
+Release:	%mkrel 0.1
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
 Url:		http://megaglest.org/
-Source0:	http://sourceforge.net/projects/megaglest/files/current_release/megaglest-source-3.5.2.4.tar.xz
+Source0:	http://sourceforge.net/projects/megaglest/files/megaglest_3.6.0/megaglest-source-3.6.0.1.tar.xz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 BuildRequires:	cmake
@@ -29,6 +29,8 @@ Requires:	glxinfo
 Requires:	megaglest-data
 Requires:	p7zip
 
+Patch0:		megaglest-3.6.0.1-noerror.patch
+
 %description
 MegaGlest is an open source 3D-real-time strategy game, where you control
 the armies of one of seven different factions: Tech, Magic, Egyptians,
@@ -40,6 +42,8 @@ within the game at no cost.
 #-----------------------------------------------------------------------
 %prep
 %setup -q
+
+%patch0 -p1
 
 #-----------------------------------------------------------------------
 %build
