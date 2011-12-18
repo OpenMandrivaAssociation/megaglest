@@ -12,6 +12,7 @@ BuildRequires:	cmake
 BuildRequires:	curl-devel
 BuildRequires:	GL-devel
 BuildRequires:	gnutls-devel
+BuildRequires:	ftgl-devel
 BuildRequires:	icu-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	lua-devel
