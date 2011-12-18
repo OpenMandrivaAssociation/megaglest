@@ -11,8 +11,9 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	cmake
 BuildRequires:	curl-devel
 BuildRequires:	GL-devel
-BuildRequires:	gnutls-devel
 BuildRequires:	ftgl-devel
+BuildRequires:	glew-devel
+BuildRequires:	gnutls-devel
 BuildRequires:	icu-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	lua-devel
