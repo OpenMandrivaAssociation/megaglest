@@ -1,11 +1,11 @@
 Name:		megaglest
-Version:	3.6.0
+Version:	3.6.0.2
 Release:	%mkrel 0.1
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
 Url:		http://megaglest.org/
-Source0:	http://sourceforge.net/projects/megaglest/files/megaglest_3.6.0/megaglest-source-3.6.0.1.tar.xz
+Source0:	http://sourceforge.net/projects/megaglest/files/megaglest_3.6.0.2/megaglest-source-3.6.0.2.tar.xz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 BuildRequires:	cmake
@@ -16,22 +16,26 @@ BuildRequires:	glew-devel
 BuildRequires:	gnutls-devel
 BuildRequires:	icu-devel
 BuildRequires:	jpeg-devel
+BuildRequires:	libircclient-static-devel
 BuildRequires:	lua-devel
+BuildRequires:	miniupnpc-devel
 BuildRequires:	oggvorbis-devel
 BuildRequires:	openal-devel
 BuildRequires:	png-devel
 BuildRequires:	SDL-devel
-BuildRequires:  SDL_mixer-devel
+BuildRequires:	SDL_mixer-devel
 BuildRequires:	SDL_net-devel
 BuildRequires:	subversion
 BuildRequires:	xerces-c28-devel
 BuildRequires:	wxgtku-devel
+BuildRequires:	x11-server-xvfb
 BuildRequires:	zlib-devel
 Requires:	glxinfo
 Requires:	megaglest-data
 Requires:	p7zip
 
 Patch0:		megaglest-3.6.0.1-noerror.patch
+Patch1:		megaglest-3.6.0.2-help2man.patch
 
 %description
 MegaGlest is an open source 3D-real-time strategy game, where you control
@@ -46,6 +50,7 @@ within the game at no cost.
 %setup -q
 
 %patch0 -p1
+%patch1 -p1
 
 #-----------------------------------------------------------------------
 %build
@@ -68,4 +73,4 @@ rmdir %{buildroot}/share
 %attr(755,root,root) %{_gamesbindir}/*
 %{_datadir}/applications/%{name}.desktop
 %{_iconsdir}/*
-%{_mandir}/man6/%{name}.6*
+%{_mandir}/man6/*.6*
