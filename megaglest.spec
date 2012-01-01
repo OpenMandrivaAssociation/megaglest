@@ -14,6 +14,7 @@ BuildRequires:	GL-devel
 BuildRequires:	ftgl-devel
 BuildRequires:	glew-devel
 BuildRequires:	gnutls-devel
+BuildRequires:	help2man
 BuildRequires:	icu-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	libircclient-static-devel
