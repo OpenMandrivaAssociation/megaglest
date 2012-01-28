@@ -1,11 +1,14 @@
+# no matter what, ignores -lssl -lcrypto dependency of -lcurl
+%define		_disable_ld_as_needed		1
+
 Name:		megaglest
-Version:	3.6.0.2
+Version:	3.6.0.3
 Release:	%mkrel 0.1
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
 Url:		http://megaglest.org/
-Source0:	http://sourceforge.net/projects/megaglest/files/megaglest_3.6.0.2/megaglest-source-3.6.0.2.tar.xz
+Source0:	http://sourceforge.net/projects/megaglest/files/megaglest_3.6.0.3/megaglest-source-3.6.0.3.tar.xz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 BuildRequires:	cmake
@@ -22,6 +25,7 @@ BuildRequires:	lua-devel
 BuildRequires:	miniupnpc-devel
 BuildRequires:	oggvorbis-devel
 BuildRequires:	openal-devel
+BuildRequires:	openssl-devel
 BuildRequires:	png-devel
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_mixer-devel
@@ -37,6 +41,7 @@ Requires:	p7zip
 
 Patch0:		megaglest-3.6.0.1-noerror.patch
 Patch1:		megaglest-3.6.0.2-help2man.patch
+Patch2:		megaglest-3.6.0.3-underlink.patch
 
 %description
 MegaGlest is an open source 3D-real-time strategy game, where you control
@@ -52,6 +57,7 @@ within the game at no cost.
 
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 #-----------------------------------------------------------------------
 %build
@@ -67,6 +73,13 @@ within the game at no cost.
 %makeinstall_std -C build
 mv %{buildroot}/share/* %{buildroot}%{_datadir}
 rmdir %{buildroot}/share
+install -d %{buildroot}%{_gamesdatadir}/megaglest
+for image in `ls %{buildroot}%{_iconsdir}`; do
+    [ -e %{buildroot}%{_gamesdatadir}/$image ] ||
+	ln -sf %{_iconsdir}/$image %{buildroot}%{_gamesdatadir}/megaglest
+done
+# installed by megaglest-data
+rm %{buildroot}%{_gamesdatadir}/megaglest/megaglest.bmp
 
 #-----------------------------------------------------------------------
 %files
@@ -75,3 +88,4 @@ rmdir %{buildroot}/share
 %{_datadir}/applications/%{name}.desktop
 %{_iconsdir}/*
 %{_mandir}/man6/*.6*
+%{_gamesdatadir}/megaglest
