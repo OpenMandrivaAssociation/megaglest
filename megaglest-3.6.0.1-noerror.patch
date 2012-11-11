@@ -1,0 +1,13 @@
+--- megaglest-3.6.0/source/glest_game/facilities/components.h.orig	2011-12-18 17:13:01.200343364 -0200
++++ megaglest-3.6.0/source/glest_game/facilities/components.h	2011-12-18 17:13:16.040395577 -0200
+@@ -216,8 +216,8 @@ public:
+ 
+     void pushBackItem(string item);
+     void setItems(const vector<string> &items);
+-	void setSelectedItemIndex(int index, bool errorOnMissing=true);
+-    void setSelectedItem(string item, bool errorOnMissing=true);
++	void setSelectedItemIndex(int index, bool errorOnMissing=false);
++    void setSelectedItem(string item, bool errorOnMissing=false);
+     void setEditable(bool editable);
+ 
+     bool hasItem(string item) const;
