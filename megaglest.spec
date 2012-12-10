@@ -3,45 +3,44 @@
 
 Name:		megaglest
 Version:	3.6.0.3
-Release:	%mkrel 0.1
+Release:	2
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
 Url:		http://megaglest.org/
-Source0:	http://sourceforge.net/projects/megaglest/files/megaglest_3.6.0.3/megaglest-source-3.6.0.3.tar.xz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-
-BuildRequires:	cmake
-BuildRequires:	curl-devel
-BuildRequires:	GL-devel
-BuildRequires:	ftgl-devel
-BuildRequires:	glew-devel
-BuildRequires:	gnutls-devel
-BuildRequires:	help2man
-BuildRequires:	icu-devel
-BuildRequires:	jpeg-devel
-BuildRequires:	libircclient-static-devel
-BuildRequires:	lua-devel
-BuildRequires:	miniupnpc-devel
-BuildRequires:	oggvorbis-devel
-BuildRequires:	openal-devel
-BuildRequires:	openssl-devel
-BuildRequires:	png-devel
-BuildRequires:	SDL-devel
-BuildRequires:	SDL_mixer-devel
-BuildRequires:	SDL_net-devel
-BuildRequires:	subversion
-BuildRequires:	xerces-c28-devel
-BuildRequires:	wxgtku-devel
-BuildRequires:	x11-server-xvfb
-BuildRequires:	zlib-devel
-Requires:	glxinfo
-Requires:	megaglest-data
-Requires:	p7zip
-
+Source0:	http://sourceforge.net/projects/megaglest/files/%{name}_%{version}/%{name}-source-%{version}.tar.xz
 Patch0:		megaglest-3.6.0.1-noerror.patch
 Patch1:		megaglest-3.6.0.2-help2man.patch
 Patch2:		megaglest-3.6.0.3-underlink.patch
+Patch3:		megaglest-3.6.0.3-gcc47.patch
+
+BuildRequires:	cmake
+BuildRequires:	help2man
+BuildRequires:	subversion
+BuildRequires:	x11-server-xvfb
+BuildRequires:	icu-devel
+BuildRequires:	jpeg-devel
+BuildRequires:	libircclient-static-devel
+BuildRequires:	miniupnpc-devel
+BuildRequires:	wxgtku-devel
+BuildRequires:	xerces-c28-devel
+BuildRequires:	pkgconfig(libcurl)
+BuildRequires:	pkgconfig(ftgl)
+BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(glew)
+BuildRequires:	pkgconfig(gnutls)
+BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(lua)
+BuildRequires:	pkgconfig(openal)
+BuildRequires:	pkgconfig(openssl)
+BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(SDL_mixer)
+BuildRequires:	pkgconfig(SDL_net)
+BuildRequires:	pkgconfig(vorbis)
+BuildRequires:	pkgconfig(zlib)
+Requires:	glxinfo
+Requires:	megaglest-data
+Requires:	p7zip
 
 %description
 MegaGlest is an open source 3D-real-time strategy game, where you control
@@ -58,6 +57,7 @@ within the game at no cost.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 #-----------------------------------------------------------------------
 %build
@@ -89,3 +89,4 @@ rm %{buildroot}%{_gamesdatadir}/megaglest/megaglest.bmp
 %{_iconsdir}/*
 %{_mandir}/man6/*.6*
 %{_gamesdatadir}/megaglest
+
