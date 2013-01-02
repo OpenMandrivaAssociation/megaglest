@@ -92,6 +92,7 @@ done
 %{_datadir}/applications/%{name}*.desktop
 %{_iconsdir}/*
 %{_mandir}/man6/*.6*
+%{_gamesbindir}/*
 %{_gamesdatadir}/megaglest/*
 
 %changelog
