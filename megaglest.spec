@@ -2,17 +2,16 @@
 %define		_disable_ld_as_needed		1
 
 Name:		megaglest
-Version:	3.6.0.3
-Release:	2
+Version:	3.7.1
+Release:	1
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
 Url:		http://megaglest.org/
-Source0:	http://sourceforge.net/projects/megaglest/files/%{name}_%{version}/%{name}-source-%{version}.tar.xz
+Source0:	http://downloads.sourceforge.net/%{name}/files/%{name}-source-%{version}.tar.xz
 Patch0:		megaglest-3.6.0.1-noerror.patch
 Patch1:		megaglest-3.6.0.2-help2man.patch
 Patch2:		megaglest-3.6.0.3-underlink.patch
-Patch3:		megaglest-3.6.0.3-gcc47.patch
 
 BuildRequires:	cmake
 BuildRequires:	help2man
@@ -39,7 +38,7 @@ BuildRequires:	pkgconfig(SDL_net)
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(zlib)
 Requires:	glxinfo
-Requires:	megaglest-data
+Requires:	megaglest-data = %{version}
 Requires:	p7zip
 
 %description
@@ -57,7 +56,6 @@ within the game at no cost.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 #-----------------------------------------------------------------------
 %build
@@ -80,13 +78,22 @@ for image in `ls %{buildroot}%{_iconsdir}`; do
 done
 # installed by megaglest-data
 rm %{buildroot}%{_gamesdatadir}/megaglest/megaglest.bmp
+for file in megaglest megaglest_editor megaglest_g3dviewer; do
+    desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/$file.desktop
+done
 
 #-----------------------------------------------------------------------
 %files
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_gamesbindir}/*
-%{_datadir}/applications/%{name}.desktop
+%doc AUTHORS.source_code.txt
+%doc CHANGELOG.txt
+%doc COPYRIGHT.source_code.txt
+%doc gnu_gpl_3.0.txt
+%doc README.txt
+%{_datadir}/applications/%{name}*.desktop
 %{_iconsdir}/*
 %{_mandir}/man6/*.6*
-%{_gamesdatadir}/megaglest
+%{_gamesdatadir}/megaglest/*
 
+%changelog
+* Wed Jan 02 2013 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 3.7.1-1
+- Update to latest upstream release.
