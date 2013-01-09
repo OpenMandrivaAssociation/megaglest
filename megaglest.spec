@@ -1,6 +1,8 @@
 # no matter what, ignores -lssl -lcrypto dependency of -lcurl
 %define		_disable_ld_as_needed		1
 
+%define		debug_package			%{nil}
+
 Name:		megaglest
 Version:	3.7.1
 Release:	1
@@ -59,6 +61,7 @@ within the game at no cost.
 
 #-----------------------------------------------------------------------
 %build
+sed -i -e 's/-O3//g' `find . -name CMakeLists.txt`
 %cmake									\
 	-DCMAKE_INSTALL_PREFIX=/					\
 	-DMEGAGLEST_BIN_INSTALL_PATH=%{_gamesbindir}			\
