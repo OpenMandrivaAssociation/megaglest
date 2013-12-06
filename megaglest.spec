@@ -1,19 +1,24 @@
 # no matter what, ignores -lssl -lcrypto dependency of -lcurl
 %define		_disable_ld_as_needed		1
 
+%define patch_level		.3
 %define		debug_package			%{nil}
 
 Name:		megaglest
-Version:	3.7.1
+Version:	3.9.0
 Release:	1
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
 Url:		http://megaglest.org/
-Source0:	http://downloads.sourceforge.net/%{name}/files/%{name}-source-%{version}.tar.xz
-Patch0:		megaglest-3.6.0.1-noerror.patch
-Patch1:		megaglest-3.6.0.2-help2man.patch
-Patch2:		megaglest-3.6.0.3-underlink.patch
+Source0:	http://downloads.sourceforge.net/%{name}/files/%{name}-source-%{version}%{patch_level}.tar.xz
+# Correct usage of xvfb-run when generating manpages
+Patch0:		%{name}-help2man.patch
+# Do not fail with cryptic message if there are missing translations
+# just use english text
+Patch1:		%{name}-translation-missing.patch
+# Mandriva patch
+Patch2:		%{name}-underlink.patch
 
 BuildRequires:	cmake
 BuildRequires:	help2man
@@ -97,7 +102,3 @@ done
 %{_mandir}/man6/*.6*
 %{_gamesbindir}/*
 %{_gamesdatadir}/megaglest/*
-
-%changelog
-* Wed Jan 02 2013 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 3.7.1-1
-- Update to latest upstream release.
