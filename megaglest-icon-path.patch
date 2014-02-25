@@ -1,0 +1,15 @@
+diff -up megaglest-3.9.1/source/glest_game/CMakeLists.txt.orig megaglest-3.9.1/source/glest_game/CMakeLists.txt
+--- megaglest-3.9.1/source/glest_game/CMakeLists.txt.orig	2014-01-23 21:39:19.627721050 -0200
++++ megaglest-3.9.1/source/glest_game/CMakeLists.txt	2014-01-23 21:39:46.431722076 -0200
+@@ -310,9 +310,9 @@ IF(BUILD_MEGAGLEST)
+ 		          "${PROJECT_SOURCE_DIR}/mk/linux/megaglest.png"
+ 		          "${PROJECT_SOURCE_DIR}/mk/linux/megaglest.xpm"
+ 		          "${PROJECT_SOURCE_DIR}/mk/linux/megaglest.bmp"
+-		          "${PROJECT_SOURCE_DIR}/data/glest_game/editor.ico"
++		          "${PROJECT_SOURCE_DIR}/editor.ico"
+ 		          "${PROJECT_SOURCE_DIR}/mk/linux/glest.ico"
+-		          "${PROJECT_SOURCE_DIR}/data/glest_game/g3dviewer.ico"
++		          "${PROJECT_SOURCE_DIR}/g3dviewer.ico"
+ 		          DESTINATION ${MEGAGLEST_ICON_INSTALL_PATH})
+ 	        ELSE()
+ 

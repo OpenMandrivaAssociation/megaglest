@@ -1,24 +1,25 @@
 # no matter what, ignores -lssl -lcrypto dependency of -lcurl
 %define		_disable_ld_as_needed		1
 
-%define patch_level		.3
 %define		debug_package			%{nil}
 
 Name:		megaglest
-Version:	3.9.0
+Version:	3.9.1
 Release:	1
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
 Url:		http://megaglest.org/
-Source0:	http://downloads.sourceforge.net/%{name}/files/%{name}-source-%{version}%{patch_level}.tar.xz
+Source0:	http://downloads.sourceforge.net/%{name}/files/%{name}-source-%{version}.tar.xz
 # Correct usage of xvfb-run when generating manpages
 Patch0:		%{name}-help2man.patch
 # Do not fail with cryptic message if there are missing translations
 # just use english text
 Patch1:		%{name}-translation-missing.patch
+# Use proper path to g3dviewer.ico in sources
+Patch2:         %{name}-icon-path.patch
 # Mandriva patch
-Patch2:		%{name}-underlink.patch
+Patch3:		%{name}-underlink.patch
 
 BuildRequires:	cmake
 BuildRequires:	help2man
@@ -29,7 +30,7 @@ BuildRequires:	jpeg-devel
 BuildRequires:	libircclient-static-devel
 BuildRequires:	miniupnpc-devel
 BuildRequires:	wxgtku-devel
-BuildRequires:	xerces-c28-devel
+BuildRequires:	xerces-c-devel
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(ftgl)
 BuildRequires:	pkgconfig(gl)
@@ -63,6 +64,7 @@ within the game at no cost.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 #-----------------------------------------------------------------------
 %build
@@ -92,11 +94,11 @@ done
 
 #-----------------------------------------------------------------------
 %files
-%doc AUTHORS.source_code.txt
-%doc CHANGELOG.txt
-%doc COPYRIGHT.source_code.txt
-%doc gnu_gpl_3.0.txt
-%doc README.txt
+%doc docs/AUTHORS.source_code.txt
+%doc docs/CHANGELOG.txt
+%doc docs/COPYRIGHT.source_code.txt
+%doc docs/gnu_gpl_3.0.txt
+%doc docs/README.txt
 %{_datadir}/applications/%{name}*.desktop
 %{_iconsdir}/*
 %{_mandir}/man6/*.6*
