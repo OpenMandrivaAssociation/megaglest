@@ -4,13 +4,13 @@
 %define		debug_package			%{nil}
 
 Name:		megaglest
-Version:	3.9.1
-Release:	4
+Version:	3.11.1
+Release:	1
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
 Url:		http://megaglest.org/
-Source0:	http://downloads.sourceforge.net/%{name}/files/%{name}-source-%{version}.tar.xz
+Source0:	https://github.com/MegaGlest/megaglest-source/releases/download/3.11.1/megaglest-source-%{version}.tar.xz
 # Correct usage of xvfb-run when generating manpages
 Patch0:		%{name}-help2man.patch
 # Do not fail with cryptic message if there are missing translations

@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   megaglest-source-3.9.1.tar.xz: 796b16e10627ed8080223b1bbfb6e84a9705927d
+sources:
+  megaglest-source-3.11.1.tar.xz: 665d77023ca1582c005f5c9922a336ab68db07a1
