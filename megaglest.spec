@@ -4,22 +4,23 @@
 %define		debug_package			%{nil}
 
 Name:		megaglest
-Version:	3.9.1
-Release:	4
+Version:	3.11.1
+Release:	1
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
 Url:		http://megaglest.org/
-Source0:	http://downloads.sourceforge.net/%{name}/files/%{name}-source-%{version}.tar.xz
+Source0:	https://github.com/MegaGlest/megaglest-source/releases/download/%{version}/%{name}-source-%{version}.tar.xz
 # Correct usage of xvfb-run when generating manpages
 Patch0:		%{name}-help2man.patch
 # Do not fail with cryptic message if there are missing translations
 # just use english text
 Patch1:		%{name}-translation-missing.patch
 # Use proper path to g3dviewer.ico in sources
-Patch2:         %{name}-icon-path.patch
+#Patch2:         %{name}-icon-path.patch
 # Mandriva patch
 Patch3:		%{name}-underlink.patch
+Patch4:		megaglest-source-3.11.1_cmake3.2-x11.patch
 
 BuildRequires:	cmake
 BuildRequires:	help2man
@@ -29,7 +30,7 @@ BuildRequires:	icu-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	libircclient-static-devel
 BuildRequires:	miniupnpc-devel
-BuildRequires:	wxgtku-devel
+BuildRequires:	wxgtku3.0-devel
 BuildRequires:	xerces-c-devel
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(ftgl)
@@ -61,10 +62,7 @@ within the game at no cost.
 %prep
 %setup -q
 
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%apply_patches
 
 #-----------------------------------------------------------------------
 %build
@@ -87,7 +85,6 @@ for image in `ls %{buildroot}%{_iconsdir}`; do
 	ln -sf %{_iconsdir}/$image %{buildroot}%{_gamesdatadir}/megaglest
 done
 # installed by megaglest-data
-rm %{buildroot}%{_gamesdatadir}/megaglest/megaglest.bmp
 for file in megaglest megaglest_editor megaglest_g3dviewer; do
     desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/$file.desktop
 done
