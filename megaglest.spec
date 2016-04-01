@@ -4,7 +4,7 @@
 %define		debug_package			%{nil}
 
 Name:		megaglest
-Version:	3.11.1
+Version:	3.12.0
 Release:	1
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
@@ -19,8 +19,8 @@ Patch1:		%{name}-translation-missing.patch
 # Use proper path to g3dviewer.ico in sources
 #Patch2:         %{name}-icon-path.patch
 # Mandriva patch
-Patch3:		%{name}-underlink.patch
-Patch4:		megaglest-source-3.11.1_cmake3.2-x11.patch
+#Patch3:		%{name}-underlink.patch
+#Patch4:		megaglest-source-3.11.1_cmake3.2-x11.patch
 
 BuildRequires:	cmake
 BuildRequires:	help2man
