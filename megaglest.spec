@@ -1,5 +1,6 @@
 # no matter what, ignores -lssl -lcrypto dependency of -lcurl
 %define		_disable_ld_as_needed		1
+%define		_disable_lto 1
 
 %define		debug_package			%{nil}
 
@@ -38,6 +39,7 @@ BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(libvlc)
 BuildRequires:	pkgconfig(lua)
 BuildRequires:	pkgconfig(openal)
 BuildRequires:	pkgconfig(openssl)
@@ -66,28 +68,18 @@ within the game at no cost.
 
 #-----------------------------------------------------------------------
 %build
+export CC=gcc
+export CXX=g++
 sed -i -e 's/-O3//g' `find . -name CMakeLists.txt`
 %cmake									\
-	-DCMAKE_INSTALL_PREFIX=/					\
-	-DMEGAGLEST_BIN_INSTALL_PATH=%{_gamesbindir}			\
-	-DMEGAGLEST_ICON_INSTALL_PATH=%{_iconsdir}			\
-	-DMEGAGLEST_DATA_INSTALL_PATH=%{_gamesdatadir}/megaglest
+-DMEGAGLEST_BIN_INSTALL_PATH=games/ \
+       -DMEGAGLEST_DATA_INSTALL_PATH=share/games/%{name}/
+
 %make
 
 #-----------------------------------------------------------------------
 %install
 %makeinstall_std -C build
-mv %{buildroot}/share/* %{buildroot}%{_datadir}
-rmdir %{buildroot}/share
-install -d %{buildroot}%{_gamesdatadir}/megaglest
-for image in `ls %{buildroot}%{_iconsdir}`; do
-    [ -e %{buildroot}%{_gamesdatadir}/$image ] ||
-	ln -sf %{_iconsdir}/$image %{buildroot}%{_gamesdatadir}/megaglest
-done
-# installed by megaglest-data
-for file in megaglest megaglest_editor megaglest_g3dviewer; do
-    desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/$file.desktop
-done
 
 #-----------------------------------------------------------------------
 %files
@@ -96,8 +88,6 @@ done
 %doc docs/COPYRIGHT.source_code.txt
 %doc docs/gnu_gpl_3.0.txt
 %doc docs/README.txt
-%{_datadir}/applications/%{name}*.desktop
-%{_iconsdir}/*
 %{_mandir}/man6/*.6*
 %{_gamesbindir}/*
 %{_gamesdatadir}/megaglest/*
