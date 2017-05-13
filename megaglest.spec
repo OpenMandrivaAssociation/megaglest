@@ -1,11 +1,11 @@
 # no matter what, ignores -lssl -lcrypto dependency of -lcurl
-%define		_disable_ld_as_needed		1
-%define		_disable_lto 1
+#define		_disable_ld_as_needed		1
+#define		_disable_lto 1
 
 %define		debug_package			%{nil}
 
 Name:		megaglest
-Version:	3.12.0
+Version:	3.13.0
 Release:	1
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
@@ -24,7 +24,7 @@ Patch1:		%{name}-translation-missing.patch
 #Patch4:		megaglest-source-3.11.1_cmake3.2-x11.patch
 
 BuildRequires:	cmake
-BuildRequires:	help2man
+BuildRequires:	ninja
 BuildRequires:	subversion
 BuildRequires:	x11-server-xvfb
 BuildRequires:	icu-devel
@@ -48,6 +48,10 @@ BuildRequires:	pkgconfig(SDL2_mixer)
 BuildRequires:	pkgconfig(SDL2_net)
 BuildRequires:	pkgconfig(vorbis)
 BuildRequires:	pkgconfig(zlib)
+# FIXME this isn't nice... But it's an ok workaround
+# for the build aborting while trying to build a man page
+# for the editor
+BuildConflicts:	help2man
 Requires:	glxinfo
 Requires:	megaglest-data = %{version}
 Requires:	p7zip
@@ -63,23 +67,22 @@ within the game at no cost.
 #-----------------------------------------------------------------------
 %prep
 %setup -q
-
 %apply_patches
+
+sed -i -e 's/-O3//g' `find . -name CMakeLists.txt`
+%cmake									\
+	-DMEGAGLEST_BIN_INSTALL_PATH=games/				\
+	-DMEGAGLEST_DATA_INSTALL_PATH=share/games/%{name}/		\
+	-G Ninja
+
 
 #-----------------------------------------------------------------------
 %build
-export CC=gcc
-export CXX=g++
-sed -i -e 's/-O3//g' `find . -name CMakeLists.txt`
-%cmake									\
--DMEGAGLEST_BIN_INSTALL_PATH=games/ \
-       -DMEGAGLEST_DATA_INSTALL_PATH=share/games/%{name}/
-
-%make
+%ninja -C build
 
 #-----------------------------------------------------------------------
 %install
-%makeinstall_std -C build
+%ninja_install -C build
 
 #-----------------------------------------------------------------------
 %files
@@ -88,6 +91,6 @@ sed -i -e 's/-O3//g' `find . -name CMakeLists.txt`
 %doc docs/COPYRIGHT.source_code.txt
 %doc docs/gnu_gpl_3.0.txt
 %doc docs/README.txt
-%{_mandir}/man6/*.6*
+%optional %{_mandir}/man6/*.6*
 %{_gamesbindir}/*
 %{_gamesdatadir}/megaglest/*
