@@ -67,7 +67,7 @@ within the game at no cost.
 #-----------------------------------------------------------------------
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 sed -i -e 's/-O3//g' `find . -name CMakeLists.txt`
 %cmake									\
