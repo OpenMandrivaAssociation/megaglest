@@ -1,6 +1,6 @@
 # no matter what, ignores -lssl -lcrypto dependency of -lcurl
-#define		_disable_ld_as_needed		1
-#define		_disable_lto 1
+%define _disable_ld_no_undefined 1
+%define _disable_lto 1
 
 %define		debug_package			%{nil}
 
@@ -78,6 +78,8 @@ sed -i -e 's/-O3//g' `find . -name CMakeLists.txt`
 
 #-----------------------------------------------------------------------
 %build
+export CC=gcc
+export CXX=g++
 %ninja -C build
 
 #-----------------------------------------------------------------------
