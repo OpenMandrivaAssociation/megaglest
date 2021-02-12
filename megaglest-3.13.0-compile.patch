@@ -1,0 +1,82 @@
+diff -up megaglest-3.13.0/build/source/g3d_viewer/main.cpp.omv~ megaglest-3.13.0/build/source/g3d_viewer/main.cpp
+diff -up megaglest-3.13.0/source/g3d_viewer/main.cpp.omv~ megaglest-3.13.0/source/g3d_viewer/main.cpp
+--- megaglest-3.13.0/source/g3d_viewer/main.cpp.omv~	2021-02-12 05:27:53.412232722 +0100
++++ megaglest-3.13.0/source/g3d_viewer/main.cpp	2021-02-12 05:35:22.134725075 +0100
+@@ -9,6 +9,9 @@
+ //	License, or (at your option) any later version
+ // ==============================================================
+ 
++// FIXME horrible evil workaround for the requirement to
++// constuct a wxPaintEvent
++#define WXBUILDING 1
+ #include "main.h"
+ 
+ #include <stdexcept>
+@@ -21,6 +24,7 @@
+ #include "xml_parser.h"
+ #include <iostream>
+ #include <wx/event.h>
++#undef WXBUILDING
+ #include "config.h"
+ #include "game_constants.h"
+ #include <wx/stdpaths.h>
+diff -up megaglest-3.13.0/source/glest_map_editor/main.cpp.omv~ megaglest-3.13.0/source/glest_map_editor/main.cpp
+--- megaglest-3.13.0/source/glest_map_editor/main.cpp.omv~	2021-02-12 05:35:37.331909464 +0100
++++ megaglest-3.13.0/source/glest_map_editor/main.cpp	2021-02-12 05:35:55.837133887 +0100
+@@ -9,6 +9,10 @@
+ //	License, or (at your option) any later version
+ // ==============================================================
+ 
++// FIXME horrible workaround for needing to construct
++// a wxPaintEvent
++#define WXBUILDING 1
++
+ #include "main.h"
+ #include <ctime>
+ #include "conversion.h"
+diff -up megaglest-3.13.0/source/shared_lib/include/feathery_ftp/ftpTypes.h.omv~ megaglest-3.13.0/source/shared_lib/include/feathery_ftp/ftpTypes.h
+--- megaglest-3.13.0/source/shared_lib/include/feathery_ftp/ftpTypes.h.omv~	2021-02-12 05:36:16.790387867 +0100
++++ megaglest-3.13.0/source/shared_lib/include/feathery_ftp/ftpTypes.h	2021-02-12 05:36:34.503602470 +0100
+@@ -69,7 +69,7 @@ typedef uint16_t port_t;
+ extern "C" {
+ #endif
+ 
+-int VERBOSE_MODE_ENABLED;
++extern int VERBOSE_MODE_ENABLED;
+ 
+ typedef ip_t (*ftpFindExternalFTPServerIpType)(ip_t clientIp);
+ typedef void (*ftpAddUPNPPortForwardType)(int internalPort, int externalPort);
+@@ -77,11 +77,11 @@ typedef void (*ftpRemoveUPNPPortForwardT
+ typedef int (*ftpIsValidClientType)(ip_t clientIp);
+ typedef int (*ftpIsClientAllowedToGetFileType)(ip_t clientIp, const char *username, const char *filename);
+ 
+-ftpFindExternalFTPServerIpType	ftpFindExternalFTPServerIp;
+-ftpAddUPNPPortForwardType		ftpAddUPNPPortForward;
+-ftpRemoveUPNPPortForwardType	ftpRemoveUPNPPortForward;
+-ftpIsValidClientType            ftpIsValidClient;
+-ftpIsClientAllowedToGetFileType ftpIsClientAllowedToGetFile;
++extern ftpFindExternalFTPServerIpType	ftpFindExternalFTPServerIp;
++extern ftpAddUPNPPortForwardType		ftpAddUPNPPortForward;
++extern ftpRemoveUPNPPortForwardType	ftpRemoveUPNPPortForward;
++extern ftpIsValidClientType            ftpIsValidClient;
++extern ftpIsClientAllowedToGetFileType ftpIsClientAllowedToGetFile;
+ 
+ #ifdef	__cplusplus
+ }
+diff -up megaglest-3.13.0/source/shared_lib/sources/platform/posix/miniftpserver.cpp.omv~ megaglest-3.13.0/source/shared_lib/sources/platform/posix/miniftpserver.cpp
+--- megaglest-3.13.0/source/shared_lib/sources/platform/posix/miniftpserver.cpp.omv~	2021-02-12 05:37:30.173276342 +0100
++++ megaglest-3.13.0/source/shared_lib/sources/platform/posix/miniftpserver.cpp	2021-02-12 05:38:19.668874785 +0100
+@@ -24,6 +24,13 @@
+ using namespace Shared::Util;
+ using namespace Shared::PlatformCommon;
+ 
++int VERBOSE_MODE_ENABLED;
++ftpFindExternalFTPServerIpType   ftpFindExternalFTPServerIp;
++ftpAddUPNPPortForwardType                ftpAddUPNPPortForward;
++ftpRemoveUPNPPortForwardType     ftpRemoveUPNPPortForward;
++ftpIsValidClientType            ftpIsValidClient;
++ftpIsClientAllowedToGetFileType ftpIsClientAllowedToGetFile;
++
+ namespace Shared { namespace PlatformCommon {
+ 
+ static const char *FTP_MAPS_CUSTOM_USERNAME        = "maps_custom";

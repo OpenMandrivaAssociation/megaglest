@@ -6,7 +6,7 @@
 
 Name:		megaglest
 Version:	3.13.0
-Release:	3
+Release:	4
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
@@ -22,6 +22,7 @@ Patch1:		%{name}-translation-missing.patch
 # Mandriva patch
 #Patch3:		%{name}-underlink.patch
 #Patch4:		megaglest-source-3.11.1_cmake3.2-x11.patch
+Patch5:		megaglest-3.13.0-compile.patch
 
 BuildRequires:	cmake
 BuildRequires:	ninja
@@ -31,6 +32,9 @@ BuildRequires:	icu-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	libircclient-static-devel
 BuildRequires:	miniupnpc-devel
+# FIXME use 3.1 or, better yet, qxqtu3.1
+# Doesn't work right now because of use of internal APIs
+# but looks fixable
 BuildRequires:	wxgtku3.0-devel
 BuildRequires:	xerces-c-devel
 BuildRequires:	pkgconfig(libcurl)
@@ -64,10 +68,24 @@ naturally looking settings, which -like the unit models- are crafted with
 great appreciation for detail. Additional game data can be downloaded from
 within the game at no cost.
 
+%package editor
+Summary:	Level editor for MegaGlest
+Requires:	%{name} = %{EVRD}
+Group:		Games/Strategy
+
+%description editor
+Level editor for MegaGlest.
+
+MegaGlest is an open source 3D-real-time strategy game, where you control
+the armies of one of seven different factions: Tech, Magic, Egyptians,
+Indians, Norsemen, Persian or Romans. The game is setup in one of 16
+naturally looking settings, which -like the unit models- are crafted with
+great appreciation for detail. Additional game data can be downloaded from
+within the game at no cost.
+
 #-----------------------------------------------------------------------
 %prep
-%setup -q
-%autopatch -p1
+%autosetup -p1
 
 sed -i -e 's/-O3//g' `find . -name CMakeLists.txt`
 %cmake									\
@@ -78,8 +96,8 @@ sed -i -e 's/-O3//g' `find . -name CMakeLists.txt`
 
 #-----------------------------------------------------------------------
 %build
-export CC=gcc
-export CXX=g++
+#export CC=gcc
+#export CXX=g++
 %ninja -C build
 
 #-----------------------------------------------------------------------
@@ -94,5 +112,9 @@ export CXX=g++
 %doc docs/gnu_gpl_3.0.txt
 %doc docs/README.txt
 %optional %{_mandir}/man6/*.6*
-%{_gamesbindir}/*
+%{_gamesbindir}/megaglest
 %{_gamesdatadir}/megaglest/*
+
+%files editor
+%{_gamesbindir}/megaglest_editor
+%{_gamesbindir}/megaglest_g3dviewer
