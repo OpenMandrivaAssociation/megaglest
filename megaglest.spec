@@ -10,7 +10,7 @@ Release:	6
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+
 Group:		Games/Strategy
-Url:		http://megaglest.org/
+Url:		https://megaglest.org/
 Source0:	https://github.com/MegaGlest/megaglest-source/releases/download/%{version}/%{name}-source-%{version}.tar.xz
 # Correct usage of xvfb-run when generating manpages
 Patch0:		%{name}-help2man.patch
